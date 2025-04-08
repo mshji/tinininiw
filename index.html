@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>tinininiw</title>
+  <title>Tinininiw</title>
   <style>
     @keyframes pulse {
       0% {
@@ -41,6 +41,10 @@
       z-index: 2;
     }
 
+    .hidden {
+      display: none;
+    }
+
     video {
       position: fixed;
       top: 0;
@@ -56,21 +60,39 @@
 <body>
 
   <video id="fullscreenVideo" src="atm.mp4" type="video/mp4"></video>
-  <button class="power-button" onclick="playVideo()"></button>
+  <button class="power-button" id="powerButton" onclick="playVideo()"></button>
 
   <script>
+    const video = document.getElementById('fullscreenVideo');
+    const powerButton = document.getElementById('powerButton');
+
     function playVideo() {
-      const video = document.getElementById('fullscreenVideo');
       video.style.display = 'block';
       video.play();
       if (video.requestFullscreen) {
         video.requestFullscreen();
-      } else if (video.webkitRequestFullscreen) { /* Safari */
+      } else if (video.webkitRequestFullscreen) {
         video.webkitRequestFullscreen();
-      } else if (video.msRequestFullscreen) { /* IE11 */
+      } else if (video.msRequestFullscreen) {
         video.msRequestFullscreen();
       }
     }
+
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+        powerButton.classList.add('hidden');
+      }
+    });
+    document.addEventListener('webkitfullscreenchange', () => {
+      if (!document.webkitFullscreenElement) {
+        powerButton.classList.add('hidden');
+      }
+    });
+    document.addEventListener('msfullscreenchange', () => {
+      if (!document.msFullscreenElement) {
+        powerButton.classList.add('hidden');
+      }
+    });
   </script>
 
 </body>
