@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tinininiw</title>
+  <style>
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 0 30px rgba(255, 0, 0, 1);
+        transform: scale(1.1);
+      }
+      100% {
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        transform: scale(1);
+      }
+    }
+
+    body {
+      margin: 0;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .power-button {
+      background-color: red;
+      border: none;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      z-index: 2;
+    }
+
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: none;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <video id="fullscreenVideo" src="atm.mp4" type="video/mp4"></video>
+  <button class="power-button" onclick="playVideo()"></button>
+
+  <script>
+    function playVideo() {
+      const video = document.getElementById('fullscreenVideo');
+      video.style.display = 'block';
+      video.play();
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.webkitRequestFullscreen) { /* Safari */
+        video.webkitRequestFullscreen();
+      } else if (video.msRequestFullscreen) { /* IE11 */
+        video.msRequestFullscreen();
+      }
+    }
+  </script>
+
+</body>
+</html>
